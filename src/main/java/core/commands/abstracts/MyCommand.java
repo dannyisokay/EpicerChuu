@@ -238,7 +238,7 @@ public abstract class MyCommand<T extends CommandParameters> implements EventLis
                 }
                 return false;
             }
-            parser.sendError("Internal Chuu Error", e);
+            parser.sendError("[Internal Chuu Error](https://tenor.com/view/error-on-your-request-internal-chuu-error-chuu-bot-gif-22330079)", e);
 
             Chuu.getLogger().warn("Internal Chuu error happened handling command {} | {} | in {}", getName(), e.toLog(), e.isFromGuild() ? e.getGuild().getName() : "in dms", ex);
         }
