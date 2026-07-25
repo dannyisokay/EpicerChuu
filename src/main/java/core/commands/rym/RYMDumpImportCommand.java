@@ -31,11 +31,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RYMDumpImportCommand extends ConcurrentCommand<UrlParameters> {
-    private static final List<String> headerLine = List.of("RYM Album", "First Name", "Last Name", "First Name localized", "Last Name localized", "Title", "Release_Date", "Rating", "Ownership", "Purchase Date", "Media Type", "Review");
+    private static final List<String> headerLine = List.of("RYM Album", "First Name", "Last Name", "First Name localized", "Last Name localized", "Title", "Release_Date", "Rating", "Ownership", "Purchase Date", "Media Type", "Review", "Review Title");
     private static final Pattern unlocalized = Pattern.compile("(.*) \\[(.*)] ?");
     private static final Set<Long> usersInProcess = new HashSet<>();
     private static final Function<CSVRecord, RYMImportRating> mapper = (line) -> {
-        if (line.size() != 12) {
+        if (line.size() != 13) {
             return null;
         }
         try {
@@ -51,6 +51,7 @@ public class RYMDumpImportCommand extends ConcurrentCommand<UrlParameters> {
             Year purchaseDate = line.get(9).isEmpty() ? null : Year.parse(line.get(9));
             String mediaType = line.get(10);
             String review = line.get(11);
+            String reviewTitle = line.get(12);
             Matcher matcher;
             if (firstName.isBlank() && firstNameLocalized.isBlank() && lastNameLocalized.isBlank() && (matcher = unlocalized.matcher(lastName)).matches()) {
                 String group = matcher.group(1);
@@ -58,7 +59,7 @@ public class RYMDumpImportCommand extends ConcurrentCommand<UrlParameters> {
                 lastName = group;
                 lastNameLocalized = group1;
             }
-            return new RYMImportRating(rymId, firstName, lastName, firstNameLocalized, lastNameLocalized, title, year, rating, ownership, purchaseDate, mediaType, review);
+            return new RYMImportRating(rymId, firstName, lastName, firstNameLocalized, lastNameLocalized, title, year, rating, ownership, purchaseDate, mediaType, review, reviewTitle);
         } catch (NumberFormatException | DateTimeParseException ex) {
             return null;
         }
