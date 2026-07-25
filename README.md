@@ -1,6 +1,6 @@
-# Chuu
+# EpicerChuu
 
-Chuu is a Discord bot that integrates [Last.fm]([https://www.last.fm/](https://www.last.fm/)) with Discord. Highly
+EpicerChuu is (a fork of) a fork of Chuu, Discord bot that integrates [Last.fm]([https://www.last.fm/](https://www.last.fm/)) with Discord. Highly
 customizable at the user and server level. It also has some unique integrations with RateYourMusic.com. There are a ton
 of available commands like:
 
